@@ -1,4 +1,4 @@
-# Template for Advanced AWS Practical Exercise
+# Advanced AWS Practical Exercise
 ​
 This repository provides a basic template for starting the practical exercise related to Advanced AWS module for ioet University 2.0 using LocalStack, a tool that simulates Amazon's cloud services in local environments for development, testing, and learning purposes.
 ​
