@@ -2,7 +2,7 @@ resource "aws_lambda_function" "backend" {
   filename      = "lambda.zip"
   function_name = "backend-lambda-function-${var.environment_name}"
   role          = var.lambda_role_arn
-  handler       = "main"
+  handler       = "main.handler"
   runtime       = "python3.8"
 }
 

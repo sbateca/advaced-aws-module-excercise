@@ -51,6 +51,11 @@ resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
 
+resource "aws_iam_user" "user" {
+  name = "user"
+  path = "/system/"
+}
+
 output "lambda_role_arn" {
   value = aws_iam_role.lambda_role.arn
 }
