@@ -2,6 +2,7 @@ module lambda {
   source = "./common/lambda"
   environment_name = local.environment_name
   lambda_role_arn = module.iam.lambda_role_arn
+  region = local.region
 }
 
 module gateway {

@@ -5,3 +5,7 @@ variable "environment_name" {
 variable lambda_role_arn {
   type = string
 }
+
+variable "region" {
+  type = string
+}

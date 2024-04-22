@@ -1,4 +1,4 @@
 locals {
   environment_name = "dev"
-  region = "us-west-1"
+  region = "us-east-1"
 }

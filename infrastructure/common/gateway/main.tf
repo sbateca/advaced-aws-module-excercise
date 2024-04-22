@@ -19,7 +19,6 @@ resource "aws_api_gateway_integration" "lambda" {
   rest_api_id = aws_api_gateway_rest_api.my_api.id
   resource_id = aws_api_gateway_resource.api_backend_gateway.id
   http_method = aws_api_gateway_method.proxy_root.http_method
-
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = var.invoke_arn
@@ -30,6 +29,13 @@ resource "aws_api_gateway_method_response" "proxy" {
   resource_id = aws_api_gateway_resource.api_backend_gateway.id
   http_method = aws_api_gateway_method.proxy_root.http_method
   status_code = "200"
+}
+
+resource "aws_api_gateway_method" "options_method" {
+  rest_api_id   = aws_api_gateway_rest_api.my_api.id
+  resource_id   = aws_api_gateway_resource.api_backend_gateway.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
 }
 
 
@@ -51,4 +57,8 @@ resource "aws_api_gateway_deployment" "gw_deployment" {
   ]
   rest_api_id = aws_api_gateway_rest_api.my_api.id
   stage_name  = var.environment_name
+}
+
+output "url" {
+  value = "${aws_api_gateway_deployment.gw_deployment.invoke_url}/${aws_api_gateway_resource.api_backend_gateway.path_part}"
 }
