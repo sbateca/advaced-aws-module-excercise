@@ -8,9 +8,10 @@ resource "aws_lambda_function" "backend" {
 }
 
 resource "aws_lambda_permission" "permission" {
+  statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.backend.function_name
-  principal     = "events.amazonaws.com"
+  principal     = "apigateway.amazonaws.com"
 }
 
 output "lambda_invoke_arn" {

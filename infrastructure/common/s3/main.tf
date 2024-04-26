@@ -2,24 +2,20 @@ resource "aws_s3_bucket" "frontend_bucket" {
   bucket = "frontend-bucket-${var.environment_name}"
 }
 
-resource "aws_s3_bucket_policy" "s3_bucket_policy" {
+
+resource "aws_s3_bucket_ownership_controls" "bucket_ownership_controls" {
   bucket = aws_s3_bucket.frontend_bucket.id
-  policy = <<POLICY
-{
-  "Version": "2008-10-17",
-  "Statement": [
-    {
-      "Sid": "PublicReadForGetBucketObjects",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::${"frontend-bucket-${var.environment_name}"}/*"
-    }
-  ]
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
 }
-POLICY
+
+resource "aws_s3_bucket_acl" "acl" {
+  bucket     = aws_s3_bucket.frontend_bucket.id
+  acl        = "private"
+  depends_on = [
+    aws_s3_bucket_ownership_controls.bucket_ownership_controls,
+  ]
 }
 
 resource "aws_s3_bucket_website_configuration" "s3_website_config" {
